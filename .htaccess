@@ -1,0 +1,10 @@
+# deliveringparcel-New lives under the live dplive.test docroot — this
+# folder is a SOURCE/BUILD copy, never web-served directly. Deny all
+# direct web access (protects .env, app source, logs, zips).
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+</IfModule>

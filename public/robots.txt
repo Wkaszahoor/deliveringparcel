@@ -1,0 +1,30 @@
+# Block all web crawlers from accessing sensitive files
+User-agent: *
+Disallow: /tests/
+Disallow: /artisan
+Disallow: /server.php
+Disallow: /composer.json
+Disallow: /composer.lock
+Disallow: /phpunit.xml
+Disallow: /readme.md
+
+# Public assets (optional if not blocked)
+Allow: /public/css/
+Allow: /public/js/
+Allow: /public/images/
+
+# Sitemap location
+Sitemap: https://deliveringparcel.com/sitemap.xml
+
+# Explicitly allow Googlebot to crawl everything
+User-agent: Googlebot
+Disallow:
+
+# Explicitly allow Bingbot to crawl everything
+User-agent: Bingbot
+Disallow:
+
+# Allow AhrefsBot full access
+User-agent: AhrefsBot
+Disallow:
+

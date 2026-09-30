@@ -1,0 +1,136 @@
+/* ============================================================
+   DeliveringParcel accessibility (dp-a11y) — shared by ALL layouts
+   (public fmaster, admin, client/shipper portal, legacy masters).
+   Own file on purpose: dp-admin.css must not be edited.
+   Also carries the global responsive-media + focus rules.
+   ============================================================ */
+
+/* ---------- Responsive media: auto-adjust to page width ---------- */
+img, video, canvas, svg { max-width: 100%; height: auto; }
+
+/* ---------- Keyboard focus is ALWAYS highlighted ---------- */
+:focus { outline: none; }
+:focus-visible,
+a:focus-visible, button:focus-visible, input:focus-visible,
+select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 3px solid #e08a00 !important;
+    outline-offset: 1px;
+    border-radius: 2px;
+}
+
+/* ---------- Floating button ----------
+   Stacked BELOW the public site's WhatsApp widget (layouts/fmaster.blade.php,
+   right:50px/bottom:50px, ~60px across) with a clear gap — WhatsApp's own
+   marginBottom was raised to make room (see fmaster). Explicit padding +
+   box-sizing here because the legacy public-site main.css has a global
+   `button { padding: 8px 15px; box-sizing: border-box }` reset: without an
+   override, that padding was still landing on top of the 46x46 box (no
+   box-sizing here previously means content-box), turning the circle into
+   an oval — width/height alone don't survive that reset untouched.
+   Selector is #dpA11yBtn (not just .dp-a11y-btn): main.css's reset rule
+   itself carries two :not(.dp-tw *) clauses, which pushes ITS specificity
+   to (0,2,1) — higher than a plain class selector's (0,1,0). An ID
+   selector (1,0,0) is the only way to beat that without !important. */
+#dpA11yBtn.dp-a11y-btn {
+    position: fixed; right: 14px; bottom: 14px; z-index: 100000;
+    width: 46px; height: 46px; padding: 0; margin: 0; box-sizing: border-box;
+    border-radius: 50%;
+    border: 2px solid #1b6ec2; background: #fff; color: #1b6ec2;
+    font-size: 24px; line-height: 1; cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,.25);
+    display: flex; align-items: center; justify-content: center;
+}
+#dpA11yBtn.dp-a11y-btn:hover { background: #1b6ec2; color: #fff; }
+
+/* ---------- Panel ---------- */
+.dp-a11y-panel {
+    position: fixed; right: 14px; bottom: 68px; z-index: 100001;
+    width: 280px; max-width: calc(100vw - 28px);
+    background: #fff; color: #212529;
+    border: 1px solid #c8ccd0; border-radius: 8px;
+    box-shadow: 0 8px 30px rgba(0,0,0,.3);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 14px;
+}
+.dp-a11y-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 12px; border-bottom: 1px solid #e3e6ea;
+    background: #f6f8fa; border-radius: 8px 8px 0 0;
+}
+.dp-a11y-close {
+    border: 0; background: transparent; font-size: 22px; line-height: 1;
+    cursor: pointer; color: #495057; padding: 0 4px;
+}
+.dp-a11y-body { padding: 12px; }
+.dp-a11y-label { font-weight: 700; margin-bottom: 6px; }
+.dp-a11y-row { display: flex; gap: 6px; }
+.dp-a11y-row button {
+    flex: 1; padding: 6px 0; border: 1px solid #adb5bd; border-radius: 6px;
+    background: #fff; cursor: pointer; font-size: 14px; font-weight: 600;
+}
+.dp-a11y-row button:hover { background: #e9ecef; }
+.dp-a11y-size { margin: 8px 0 10px; color: #495057; }
+.dp-a11y-check { display: block; margin: 8px 0; cursor: pointer; }
+.dp-a11y-reset {
+    width: 100%; margin-top: 6px; padding: 7px 0;
+    border: 1px solid #adb5bd; border-radius: 6px; background: #f8f9fa; cursor: pointer;
+}
+.dp-a11y-reset:hover { background: #e9ecef; }
+.dp-a11y-note { margin: 10px 0 0; font-size: 12px; color: #6c757d; }
+
+/* ---------- Mode: underline links ---------- */
+html.dp-a11y-underline a { text-decoration: underline !important; }
+
+/* ---------- Mode: high contrast (curated; opt-in) ---------- */
+html.dp-a11y-contrast body { background: #fff !important; color: #000 !important; }
+html.dp-a11y-contrast .content-wrapper,
+html.dp-a11y-contrast .card,
+html.dp-a11y-contrast .dp-kpi,
+html.dp-a11y-contrast .modal-content,
+html.dp-a11y-contrast .dropdown-menu,
+html.dp-a11y-contrast .table,
+html.dp-a11y-contrast .form-control { background: #fff !important; color: #000 !important; }
+html.dp-a11y-contrast .card,
+html.dp-a11y-contrast .dp-kpi,
+html.dp-a11y-contrast .table td,
+html.dp-a11y-contrast .table th,
+html.dp-a11y-contrast .form-control { border: 2px solid #000 !important; box-shadow: none !important; }
+html.dp-a11y-contrast a { color: #0000cc !important; text-decoration: underline !important; }
+html.dp-a11y-contrast .btn { border: 2px solid #000 !important; }
+html.dp-a11y-contrast .btn-primary { background: #000 !important; color: #fff !important; }
+html.dp-a11y-contrast .main-sidebar { background: #000 !important; }
+html.dp-a11y-contrast .main-sidebar .nav-link,
+html.dp-a11y-contrast .main-sidebar .brand-text { color: #fff !important; }
+html.dp-a11y-contrast .main-header { background: #fff !important; border-bottom: 2px solid #000 !important; }
+html.dp-a11y-contrast img { filter: contrast(1.15); }
+
+/* ---------- Public marketing site (.dp-home) ----------
+   The rules above only ever matched admin-panel classes (.card, .dp-kpi,
+   .btn-primary, .main-sidebar, .form-control), so enabling high contrast on
+   the homepage/services/etc. did nothing — the one feature built for
+   accessibility-dependent visitors had no effect on the page they were
+   actually standing on. This block covers the public site's own component
+   classes and its many inline `style="color:var(--dp-*)"` accents. */
+html.dp-a11y-contrast .dp-home { background: #fff !important; color: #000 !important; }
+html.dp-a11y-contrast .dp-home .dp-card,
+html.dp-a11y-contrast .dp-home .dp-console,
+html.dp-a11y-contrast .dp-home .dp-console-field,
+html.dp-a11y-contrast .dp-home .dp-console-native-select {
+    background: #fff !important; color: #000 !important;
+    border: 2px solid #000 !important; box-shadow: none !important;
+}
+html.dp-a11y-contrast .dp-home .dp-btn,
+html.dp-a11y-contrast .dp-home .dp-btn-accent,
+html.dp-a11y-contrast .dp-home .dp-btn-ink,
+html.dp-a11y-contrast .dp-home .dp-console-submit {
+    background: #000 !important; color: #fff !important;
+    border: 2px solid #000 !important; box-shadow: none !important;
+}
+html.dp-a11y-contrast .dp-home [style*="color:var(--dp-ink-soft"],
+html.dp-a11y-contrast .dp-home [style*="color:var(--dp-accent"],
+html.dp-a11y-contrast .dp-home [style*="color:var(--dp-cyan"],
+html.dp-a11y-contrast .dp-home [style*="color:var(--dp-console-muted"] { color: #000 !important; }
+html.dp-a11y-contrast .dp-home [style*="background:var(--dp-accent-soft"],
+html.dp-a11y-contrast .dp-home [style*="background:var(--dp-cyan-soft"] {
+    background: #fff !important; border: 1px solid #000 !important;
+}

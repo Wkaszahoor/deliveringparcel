@@ -1,0 +1,1189 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&display=swap');
+/*...... Navbar styling stars from here .....*/
+/* .container-fluid {
+        padding-right:0px;
+        padding-left:0px;
+      } */
+/* .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+        
+        padding-left: 0px;
+        
+} */
+.hide{
+        display: none;
+}
+.fontsize{
+    font-size:46px !important;
+}
+.topbanner .color-p{
+    color:#29ABE2;
+    font-size:20px !important;
+}
+.topbanner .color-h2{
+    color:#EF9131;
+}
+.right-col .color{
+    color:#EF9131 !important;
+}
+#loader {
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.75) url('../images/Spinner-2.gif') no-repeat center center;
+  z-index: 10000;
+}
+.partners {
+        background-color: #2A2826;
+        padding: 40px 0px 40px 0px;
+}
+.partners p{
+        font-family: "Playfair Display", sans-serif;
+	font-size: 20px;
+        font-weight: 400;
+        color: #ffffff;
+        letter-spacing: 0.6px;
+}
+.topbar{
+     background-color: #FFFFFF;
+     padding: 15px 0px 15px 0px;   
+}
+.color{
+        color: #EF9132;
+}
+/* .row{
+     margin-right: 0px;
+     margin-left: 0px;  
+} */
+.topbar .email a{
+        font-family: 'Poppins', sans-serif;
+	font-size: 20px;
+        font-weight: 700;
+        color: #5B5B5B;
+        text-decoration: none;
+}
+.topbar img{
+        width: 114px;
+        height: 50px;
+}
+.topbar #button{
+        font-family: "Poppins", Sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        background-color: #29ABE2;
+        padding: 10px 20px 10px 20px;
+        color: #FFFFFF;
+}
+.topnav {
+        background-color: #EFEFEF;     
+}
+.topnav .nav-item{
+        padding: 20px 4px;
+}
+.topnav a{
+        font-family: 'Poppins', sans-serif;
+	font-size: 16px;
+        font-weight: 500;
+        color: #4d4b49;
+        text-decoration: none;       
+}
+.topnav ul li a:hover{
+        color: #EF9132;
+        border-bottom:3px solid #EF9132;        
+}
+.navbar-nav  .active{
+        border-bottom:3px solid #EF9132;       
+}
+/*........ Home page style Start from here .....*/
+.style-h1{
+        color: #5B5B5B;
+        font-family: "Playfair Display", Sans-serif;
+        font-size: 52px;
+        font-weight: 700;
+        letter-spacing: 0.6px;   
+}
+.style-h2{
+        color: #5B5B5B;
+        font-family: "Playfair Display", Sans-serif;
+        font-size: 42px;
+        font-weight: 700;
+        letter-spacing: 0.6px;   
+}
+.style-h3{
+        color: #5B5B5B;
+        font-family: "Poppins", Sans-serif;
+        font-size: 36px;
+        font-weight: 500;
+        letter-spacing: 0.6px;   
+}
+.style-h4{
+        color: #5B5B5B;
+        font-family: "Playfair Display", Sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: 0.6px;   
+}
+.style-p{
+        color: #5B5B5B;
+        font-family: "Poppins", Sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+}
+body .custom-btn{
+        font-family: "Poppins", Sans-serif;
+        font-weight: 500;
+        font-size: 16px;
+        text-transform: none;
+        letter-spacing: 0.4px;
+        fill: #FFFFFF;
+        color: #FFFFFF;
+        background-color: #EF9132;
+        padding: 23px 23px 23px 23px; 
+}
+/*..... Top banner section .....*/
+.topbanner {
+        background-image: url('../images/Group 273.png');
+	background-size: 100% 100%;
+	height: 100%;
+	width: 100%;
+        padding: 80px 0px 80px 0px;
+}
+.topbanner .button{
+	margin: 40px auto;
+} 
+.topbanner p{
+        padding: 0px 0px 16px;         
+}
+.topbanner .label{
+        color: #5B5B5B;
+        font-family: "Poppins", Sans-serif;
+        font-size: 16px;  
+        font-weight: 400;     
+}
+.topbanner .form{
+        border:2px solid #5B5B5B;
+        padding: 15px;
+}
+.topbanner .select{
+        border:2px solid #5B5B5B;
+        height: 50px;
+}
+.topbanner .left-col{
+        background-color: #fff;
+        padding-top: 10px;             
+}
+.topbanner .left-col{
+        padding-left: 58px; 
+        padding-right: 58px;          
+}
+.topbanner .left-col .btn{
+        font-family: "Poppins", Sans-serif;
+        font-weight: 500;
+        font-size: 16px;
+        text-transform: none;
+        letter-spacing: 0.4px;
+        fill: #FFFFFF;
+        color: #FFFFFF;
+        background-color: #EF9132;
+        padding: 16px 10px; 
+}
+.topbanner .button a:hover{
+	text-decoration: none;
+}
+.topbanner input{
+        height: 55px;
+}
+.topbanner .right-col{
+        background-color: #fff;
+        padding-top: 58px; 
+        padding-bottom: 58px; 
+}
+.topbanner .right-col h1{
+        color: #5B5B5B;
+        /*font-family: "Poppins", Sans-serif;*/
+        font-size: 29px;
+        font-weight: 400; 
+}
+.topbanner span{
+        color: #5B5B5B;
+        font-family: "Poppins", Sans-serif;
+        font-size: 47px; 
+        color: #EF9132;
+        padding-top: 15px;
+}
+.work-heading {
+        padding: 80px 0px;
+}
+.work-heading h1 {
+        color: #5B5B5B;
+}
+.card-section .card{
+        margin: 10px;
+        border:1px solid #E5E5E5;
+        border-radius: 5px;
+        box-shadow: 0px 0px 2px 0px #5B5B5B;
+}
+.card-section{
+        background-color: #F6F6F6;
+        padding-top: 80px;
+}
+.card-section .card-body{
+        height: 365px;
+}
+.card-section h2 {
+        color: #5B5B5B;
+        font-family: "Poppins", Sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        text-transform: none;
+        line-height: 1.4em;
+}
+.card-section p {
+        color: #5B5B5B;
+        font-size: 16px;
+        text-transform: none;
+        text-align: inherit;
+}
+.card-section .btn{
+       margin: 60px 0px 109px 0px;
+}
+/*........ courier (homepage section courier) Start from here .....*/
+.courier {
+    background-image: url('../images/Untitled3.png');	
+	color: white;
+	width: 100%;
+	max-height: 100%;
+    padding: 80px 0px 0px 0px;
+}
+.courier h1{
+    color: #FFFFFF;
+    letter-spacing: 1px; 
+    padding-bottom: 15px; 
+}
+.courier p{
+    color: #FFFFFF;
+    text-transform: none;
+    line-height: 1.5em;
+    letter-spacing: 1px;  
+}
+.curier-img{
+	padding-bottom: 30px;
+}
+.curier-img .col-sm-10{
+	padding-bottom: 50px;
+	text-align: center;
+}
+/*........ Tracking (homepage section tracking ) Start from here .....*/
+.tracking{
+	padding-top: 55px;
+	padding-bottom:100px;
+}
+.tracking h2{
+    color: #5B5B5B;
+    font-family: "Playfair Display", Sans-serif;
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: 0.6px; 
+    padding-bottom: 20px; 
+}
+.tracking p{
+    color: #5B5B5B;
+    font-family: "Poppins", Sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    letter-spacing: 0.6px;       
+}
+/*........ Testimonial Start from here .....*/
+.testimonials{
+	padding-bottom:130px ;
+	padding-top: 130px;
+	background-color: #F6F6F6;
+}
+.testimonials .style-p{
+    color: #333333;
+    font-family: "Poppins", Sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 25px; 
+}
+
+.testimonials p{
+    color:#5B5B5B;
+	margin-top: 30px;
+}
+.testimonials .row{
+	margin-top: 30px;
+}
+.profile .checked{
+    font-size: 17px;
+ 	color: #FD5545 !important;
+	background-color: #fff;
+    padding-bottom: 10px;
+}
+.profile{
+	padding: 30px 10px;
+	background-color: white;
+    min-height: 600px;
+    /* height: auto; */
+    text-overflow: ellipsis;
+    border: 1px solid #d1cdcd;
+}
+
+.user{
+    width: 150px;
+    height: 150px;
+    /* margin-left: 25px; */
+    border: 3px solid  #333333;
+    border-radius: 50%;
+}
+.profile p{
+	margin-top: 30px;
+    color: #333333;
+    font-family: "Poppins", Sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 23px;
+}
+.profile h3{
+	color: #333333;
+    font-family: "Poppins", Sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 25px;
+}
+.profile h4{
+	color: #7E7B7B;
+    font-family: "Poppins", Sans-serif;
+    font-size: 15px;
+    font-weight: 600;       
+}
+.profile:hover{
+	box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+	transition: 0.5s;	
+}
+/*........ Estimate (homepage estimate section) Start from here .....*/
+.estimate{
+    padding-bottom:100px ;
+	padding-top: 100px;
+}
+.estimate p{
+    color: #5B5B5B;
+    font-family: "Poppins", Sans-serif;
+    font-size: 18px;    
+}
+.estimate h3{
+    color: #5B5B5B;
+    font-family: "Poppins", Sans-serif;
+    font-size: 33px;    
+}
+.estimate .form{
+    height: 55px;
+    font-family: "Poppins", Sans-serif;
+    font-size: 16px;
+    font-weight: 400;       
+}
+.estimate .btn{
+    font-family: "Poppins", Sans-serif;
+    font-size: 15px;
+    text-transform: none;
+    flex-basis: 100%;
+    fill: #FFFFFF;
+    color: #FFFFFF;
+    background-color: #EF9132;
+    padding: 15px 15px 15px 15px;
+    min-height: 40px; 
+    border-radius: 5px 5px 5px 5px;
+    box-sizing: border-box;
+    width: 100%;
+}
+/*.......Slider section .....*/
+        #owl-demo {
+            background: #000000;
+            padding: 98px 0px 20px 0px;
+            height: 250px;
+        }
+        #owl-demo img {
+            display: block;
+            /* max-width:230px;
+            max-height:95px; */
+            max-width:200px;
+            max-height:75px;
+            width: auto;
+            height: auto;
+            margin-left: 35px;
+        }
+        #owl-demo .item{
+            /* background: #3fbf79; */
+            /* padding: 30px 0px; */
+            /* margin: 10px; */
+            color: #FFF;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            text-align: center;
+            background-position: center center;
+        }
+        body .owl-nav {
+            position: initial;
+        }     
+        body .owl-nav div {
+            position: absolute;
+            top: 30%;
+            /* border:1px solid #000;
+            width: 35px;
+            height: 35px;
+            border-radius: 50% !important;
+            background-color: #0065B3 !important; */
+        }   
+        body .owl-prev {
+            left: 5px;
+            display: flex;
+            color: white;
+            font-size: 50px;
+        }      
+        body .owl-next {
+            right: 10px;
+            display: flex;
+            color: white;
+            font-size: 50px;
+        }     
+        body .owl-prev i,
+        body .owl-next i {
+            line-height: 25px;
+            font-size: 50px;
+        }
+/*.... Shopper & shipper page style start here .....*/
+.banner-h1{
+    color: #FFFFFF;
+    font-family: "Playfair Display", Sans-serif;
+    font-size: 90px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+.shopper-banner{
+    background-image: url('../images/Group 273.png');
+	background-size: 100% 100%;
+	height: 100%;
+	width: 100%;
+    padding: 180px 0px 180px 0px;
+}
+.shipper-banner{
+    background-image: url('../images/Group 27344.png');
+	background-size: 100% 100%;
+	height: 100%;
+	width: 100%;
+        padding: 180px 0px 180px 0px;
+}
+.shopper-page p{
+    margin-right: 16px; 
+}
+.shopper-page .style-pa{
+    color: #EF9132;
+    font-family: "Playfair Display", Sans-serif;
+    font-size: 21px;
+    font-weight: 700;
+}
+.shopper-page h2{
+    font-size: 42px;
+}
+.shopper-work {
+    padding: 70px 0px;
+ }
+.shooper-padding{
+    padding-bottom: 100px;
+}
+.shopper-work h1{
+    padding-bottom: 50px;
+}
+.shopper-page  .option-steps{
+    color:#5B5B5B;
+    font-family: "Playfair Display", Sans-serif;
+    font-size: 32px;
+    font-weight: 700; 
+}
+.option-steps::before { /* the custom styled bullets */
+    background-color: #EF9132;
+    border-radius: 50%;
+    content: "";
+    display: inline-block;
+    margin-right: 25px;
+    margin-bottom: 2px;
+    height: 18px;
+    width: 18px;
+}
+.options p{
+    margin-left: 42px;
+}
+.shopper-page .btn{
+    font-family: "Poppins", Sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: #fff;
+    background-color: #EF9132;
+    padding: 35px 84px 35px 84px;
+    margin-bottom: 80px;      
+}
+.shopper-page a{
+    text-decoration: none;
+    list-style: none;
+}
+.shopper-page a:hover{
+    text-decoration: none;
+    list-style: none;
+}
+.shiper-padding{
+    padding-bottom: 40px;
+}
+/*.......About us page styling start from here ......*/
+.aboutus-banner{
+    background-image: url('../images/aboutus.png');
+	background-size: 100% 100%;
+	height: 100%;
+	width: 100%;
+     padding: 180px 0px 180px 0px;
+}
+.aboutus-padding {
+    padding: 160px 0px 0px 0px;
+}
+.aboutus-padding p{
+    font-weight: 500;      
+}
+.aboutus-padding span{
+    font-weight: 700;       
+}
+.about-mission {
+    background-color: #29ABE2;
+    padding:80px 0px;
+    margin: 160px 0px 0px 0px;        
+}
+.about-mission h2 {
+    color: #fff;
+    font-size: 52px;
+    font-weight: 700;
+}
+.about-mission p{
+    color: #fff;
+}
+.contact-form {
+    background-image: url('../images/Group 27355.png');
+	background-size: 100% 100%;
+	height: 100%;
+	width: 100%;
+    padding: 70px 0px 70px 0px;   
+}
+.contact-inner{
+    background-color: #ffffff;
+    padding: 40px;
+}
+.contact-inner input{
+    height: 50px;
+    font-family: "Poppins", Sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #3C3C3C;
+    padding: 15px;
+}
+.contact-inner textarea{
+    font-family: "Poppins", Sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #3C3C3C;
+    padding: 15px;
+}
+.contact-inner .btn{
+    background-color: #EF9132;
+    color: #ffffff;
+    border-radius: 5px 5px 5px 5px;
+    font-family: "Poppins", Sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    width: 180px;
+    height: 50px;       
+}
+/*....Pick and pack page .....*/
+.pickpage-padding{
+    padding: 120px 0px 50px 0px;
+}
+.pick-square img{
+    float: right;
+    margin-left: 20px;      
+}
+.fulfillment-section h2{
+    font-family: "Poppins", Sans-serif;
+    font-size: 36px;
+    font-weight: 500;
+    letter-spacing: 0.4px;
+    color: #3C3C3C;
+    padding: 40px 0px 30px 0px;    
+}
+.pick-options p{
+    padding: 5px 0px 5px 0px;
+}
+.pick-steps::before { /* the custom styled bullets */
+    background-color: #29ABE2;
+    border-radius: 50%;
+    content: "";
+    display: inline-block;
+    margin-right: 15px;
+    margin-bottom: 2px;
+    height: 10px;
+    width: 10px;
+}
+.pick-options .btn{
+    font-family: "Poppins", Sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: #fff;
+    background-color: #EF9132;
+    padding: 10px 30px 10px 30px;
+       margin: 20px 0px 50px 0px;
+}
+/*.......contact us page styling start here ......*/
+.contactus-banner{
+    background-image: url('../images/contactus.png');
+	background-size: 100% 100%;
+	height: 100%;
+	width: 100%;
+    padding: 180px 0px 180px 0px;
+}
+.contactmap{
+    padding: 120px 0px 120px 0px;
+}
+.contactmap span {
+    font-size: 18px;
+}
+/*......Fulfillment services .......*/
+.fulfillment-banner{
+    background-image: url('../images/fulfillment.png');
+	background-size: 100% 100%;
+	height: 100%;
+	width: 100%;
+    padding: 180px 0px 180px 0px;
+}
+.fulfillment-page .bg-span {
+    padding: 20px 0px 12px 0px;
+    background-color: #F3F3F3;
+}
+.fulfillment-amazon h1{
+    font-size: 42px;
+}
+.fulfillment-amazon h3{
+    font-size: 32px;
+    font-family: "Poppins", Sans-serif;
+    padding: 15px 0px 20px 0px;
+}
+.fulfillment-amazon h4{
+    font-family: "Poppins", Sans-serif;
+    font-size: 25px;
+    font-weight: 500;
+    padding-bottom: 20px;
+    margin-top: 16px;
+    line-height: 1;
+    color: #5B5B5B;
+}
+.list-style ul {
+    list-style: none;
+}
+.list-style ul li::before { /* the custom styled bullets */
+    content: "\2022";
+    color:#29ABE2;
+    font-weight: bold;
+    display: inline-block; 
+    width: 1em;
+    font-size: 25px;
+    margin-left: -1em;
+    padding-right: 10px;      
+}
+.fulfillment-amazon h2{
+    color: #29ABE2;
+    font-family: "Poppins", Sans-serif;
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 1.3em;
+    padding: 10px 0px 10px 0px ;
+}
+.fulfillment-amazon img{
+    padding: 10px 0px 10px 0px ;
+}
+/*........ special-request page styling Start from here .....*/
+.special-request{
+    padding: 50px 0px 50px 0px;
+}
+.special-request ul li a{
+    font-family: "Poppins", Sans-serif;
+    font-weight: 700;
+    color: #EF9132;
+    font-size: 16px;
+    padding: 20px 25px;
+}
+.special-request .text-color{
+    font-weight: 600;
+    color: #EF9132;
+}
+.profile-tab li .active {
+    font-family: "Poppins", Sans-serif;
+    font-weight: 700;
+    color: #2A9FE2 !important;
+    font-size: 16px;      
+}
+.tab-pane  label{
+    color: #696969;
+    font-family: "Poppins", Sans-serif;
+    font-size: 16px;
+    font-weight: bold;  
+    margin-bottom: 5px; 
+} 
+
+.tab-pane input{
+    height: 50px;
+    font-family: "Poppins", Sans-serif;
+    font-size: 18px;
+    font-weight: 300; 
+    color: #495057;
+}
+.check input{
+    height: inherit;  
+}
+
+.tab-pane select{
+    height: 50px;
+    font-size: 16px; 
+    color: #495057;
+}
+.special-request .check label{
+    font-weight: 600 !important;
+    color:#5B5B5B ;
+}
+.special-request .total{
+    cursor: pointer;
+    background-color: #2A9FE2;
+    color: #fff;
+    border: none;
+    border-radius: 5PX;
+    padding: 5px 0px;
+    font-size: 18px;
+    font-weight: 500;
+    width: 100px;
+}
+.special-request .shipping_btn{
+    background-color: #EF9132;
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    padding: 12px 0px;
+    font-size: 15px;
+    font-weight: 600;
+}
+.special-request .shipping_btn:hover{
+    background-color: #ED7700;  
+}
+.special-request .placeorder{
+    background-color: #EF9132;
+    color: #fff;
+    border: none;
+    border-radius: 5PX;
+    padding: 8px 10px;
+    font-size: 18px;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+.special-request .placeorder:hover{
+    background-color: #ED7700;
+    color: #fff;
+}
+.special-request h2{
+    color: #5B5B5B;
+    font-family: "Playfair Display", Sans-serif;
+    font-size: 42px;
+    padding: 30px 0px;
+}
+/*......term-condition page styling start from here .....*/
+.term-condition{
+    padding-bottom: 100px;
+}
+.term-condition h1{
+    padding: 100px 0px 80px 0px;
+}
+.term-condition a{
+    text-decoration: none;
+    color: #EF9132;
+}
+.term-condition a:hover{
+    text-decoration: none;
+    color: #EF9132;
+}
+/*........ Footer styling Start from here .....*/
+.page-footer {
+    background-color: #2A2826;
+    color: #5B5B5B;
+}
+.page-footer h6{
+    font-family: "Poppins", Sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    color: #FFFFFF; 
+}
+.page-footer h5{
+    color: #FFFFFF;
+    font-family: "Poppins", Sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+}
+.page-footer a, p{
+    font-family: 'Poppins', sans-serif;
+	font-size: 14px;
+    font-weight: 300;
+    color: #FDFEFF;
+    text-decoration: none;
+}
+.page-footer .stripe p{
+    color: #ffffff;
+    font-family: "Poppins", Sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+}
+.page-footer a:hover{
+    text-decoration: none;
+     color: #fff;
+}
+/*........ Styling for Mobile screen ......*/
+
+@media(min-width: 992px) and (max-width: 1199px)
+{ 
+        .partners img{
+            width: 230px;
+            height: auto;
+        }
+        .partners{
+            padding: 15px;
+        }
+        .topnav .nav-item{
+            padding: 20px 0px;
+        }
+        .topnav a{
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #EF9132;
+            text-decoration: none;       
+        }
+        /* .topbanner .left-col{
+                padding:20px 10px;
+        } */
+        .topbanner h1{
+            font-size: 45px;
+        }
+        .topbanner h2{
+            font-size: 30px;
+        }
+        .topbanner p{
+            font-size: 18px;
+        }
+        .topbanner .medium{
+            text-align: center; 
+        }
+        .topbanner .button{
+            font-size: 5px;
+        }
+        .topbanner .right-col{
+            margin: 20px 0px 0px 16px;
+            text-align: center;
+        }
+        .topbanner .right-col{
+            margin-top: 20px !important;
+        }
+}
+@media (min-width: 768px) and (max-width: 991px) 
+{       
+        .style-h1{
+            color: #5B5B5B;
+            font-family: "Playfair Display", Sans-serif;
+            font-size: 30px;
+            font-weight: 700;
+            letter-spacing: 0.6px;   
+        }
+        .style-h2{
+            color: #5B5B5B;
+            font-family: "Playfair Display", Sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.6px;   
+        }
+        .style-h4{
+            color: #5B5B5B;
+            font-family: "Playfair Display", Sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.6px;   
+        }
+        .style-p{
+            color: #5B5B5B;
+            font-family: "Poppins", Sans-serif;
+            font-size: 15px;
+            font-weight: 400;
+        }
+        .partners img{
+            width: 230px;
+            height: auto;
+        }
+        .partners{
+            padding: 15px;
+        }
+        .topnav .bt{
+            margin-left: 333px;     
+        }
+        /* .topbanner .left-col{
+                padding:20px 10px;
+        } */
+        .topbanner h1{
+            font-size: 52px;
+        }
+        .topbanner h2{
+                /*font-size: 42px;*/
+            font-size: 26px;
+        }
+        .topbanner p{
+            font-size: 19px;
+        }
+        .topbanner .medium{
+            text-align: center; 
+        }
+        .topbanner .right-col{
+            margin: 20px 0px 0px 16px;
+            text-align: center;
+        }
+        .work-heading {
+            padding: 20px 0px;
+        }
+        .card-section .btn{
+            margin: 30px 0px 50px 0px;
+        }
+        .courier {
+            padding: 30px 0px 0px 0px;
+        }
+        .testimonials{
+            padding-bottom:40px ;
+            padding-top: 40px;
+        }
+        .profile{
+            padding: 30px 5px 10px;
+            background-color: white;
+            height: 700px;
+        }
+        .estimate{
+            padding-bottom:40px ;
+            padding-top: 40px;
+        }
+        .slick-slide img {
+            width: 180px;
+            height: 70px;   
+        }
+        .slider-brand .slide{
+            margin: 0px 15px 0px 15px;
+        }
+        .banner-h1{
+            font-size: 74px;
+        }
+        .shopper-page .btn{
+            padding: 23px 0px 23px 0px;
+            margin-bottom: 80px;   
+        }
+         #dynamicTable input{
+            width: 100px;
+        }
+}
+@media (max-width: 780px) 
+{ 
+        .topbanner .right-col{
+            margin-top: 20px !important;
+        }
+}
+@media only screen and (max-width: 575.98px) 
+{       
+        /* .navbar-nav  .active li{
+                border-bottom:3px solid #EF9132;      
+        } */
+        .topbar .spacing{
+            margin-bottom: 10px;
+        }
+        .topbar #button{
+            padding: 10px 8px 10px 8px;
+        }
+        .topbar .email{
+            display: none;
+        }
+        .style-h1{
+            color: #5B5B5B;
+            font-family: "Playfair Display", Sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 0.6px;   
+        }
+        .style-h2{
+            color: #5B5B5B;
+            font-family: "Playfair Display", Sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.6px;   
+        }
+        .style-h4{
+            color: #5B5B5B;
+            font-family: "Playfair Display", Sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.6px;   
+        }
+        .style-p{
+            color: #5B5B5B;
+            font-family: "Poppins", Sans-serif;
+            font-size: 15px;
+            font-weight: 400;
+        }
+        body .custom-btn{
+            padding: 10px 10px 10px 10px; 
+        }
+        /* .topbanner .left-col{
+                padding:20px 10px;
+        } */
+        .topbanner .medium{
+            text-align: center;
+        }
+        .topbanner .right-col h1{
+            font-size: 25px;
+        }
+        .topbanner .left-col{
+            margin-bottom: 30px;
+        }
+        .topbanner .right-col{
+            margin-top: 20px !important;
+        }
+        .partners img{
+            width: 220px;
+            height: auto;
+        }
+        .partners{
+            padding: 13px;
+        }
+        .topnav .nav-item{
+            padding: 5px 4px;
+        }
+       
+        .topbanner{
+            padding: 10px 0px 10px 0px;
+        }
+        .topbanner .left-col, .right-col{
+            background-color: #fff;
+            padding-top: 10px;
+        }
+        .topbanner .left-col, .right-col{
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+        .card-section .card-body{
+            height: auto;
+        }
+        .work-heading{
+            padding: 10px 0px 10px 0px;
+        }
+        .card-section .btn{
+            margin: 20px 0px 40px 0px;
+        }
+        .courier {
+            padding: 40px 0px 25px 0px;
+        }
+        .tracking{
+            padding-top: 40px;
+            padding-bottom:40px;
+        }
+        .testimonials{
+            padding-bottom:10px ;
+            padding-top: 10px;
+            background-color: #F6F6F6;
+        }
+        .testimonials p{
+            font-size: 15px;
+        }
+        .estimate{
+            padding-bottom:60px;
+            padding-top: 60px;
+        }
+        .estimate p{
+            font-size: 15px;    
+        }
+        .estimate h3{
+            color: #5B5B5B;
+            font-family: "Poppins", Sans-serif;
+            font-size: 33px;    
+        }
+        .estimate .col-12{
+            padding-bottom: 10px;
+        }
+        .slick-slide img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .banner-h1{
+            font-size: 50px;
+             
+        }
+        .shopper-banner{
+            padding: 100px 0px 100px 0px;
+        }
+        .shipper-banner{
+            padding: 100px 0px 100px 0px;
+        }
+        .shopper-page .btn{
+            padding: 10px 20px 10px 20px;
+            margin-bottom: 40px;               
+        }
+        .option-steps::before { /* the custom styled bullets */
+            display: none;
+        }
+        .profile{
+            height: auto;
+        }
+        .options p{
+            margin-left: 0px;
+        }
+        .aboutus-banner{
+            padding: 100px 0px 100px 0px;
+        }
+        .aboutus-padding {
+            padding: 30px 0px 0px 0px;
+        }
+        .contactus-banner{
+            padding: 100px 0px 100px 0px;
+        }
+        .contactmap{
+            padding: 70px 0px 70px 0px;
+        }
+        .pickpage-padding{
+            padding: 70px 0px 50px 0px;
+        }
+        .fulfillment-banner{
+            padding: 100px 0px 100px 0px;
+        }
+        .slick-slide img {
+            width: 150px;
+            height: 80px;
+        }
+        #owl-demo img {
+            margin-left: 100px;
+        }
+        #dynamicTable input{
+            width: 130px;
+        }
+        .tab-pane  label{
+            color: #696969;
+            font-family: "Poppins", Sans-serif;
+            font-size: 14px;
+            font-weight: bold;  
+            margin-bottom: 5px; 
+        } 
+}

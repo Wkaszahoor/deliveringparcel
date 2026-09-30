@@ -1,0 +1,444 @@
+/*....... special-request page styling Start from here .....*/
+.special-request{
+    padding: 50px 0px 50px 0px;
+}
+.special-request ul li a{
+    font-family: "Poppins", Sans-serif;
+    font-weight: 700;
+    color: #EF9132;
+    font-size: 16px;
+    padding: 20px 25px;
+}
+.special-request .text-color{
+    font-weight: 600;
+    color: #EF9132;
+}
+.profile-tab li .active {
+    font-family: "Poppins", Sans-serif;
+    font-weight: 700;
+    color: #2A9FE2 !important;
+    font-size: 16px;      
+}
+.tab-pane  label{
+    color: #696969;
+    font-family: "Poppins", Sans-serif;
+    font-size: 16px;
+    font-weight: bold;  
+    margin-bottom: 5px; 
+} 
+
+.tab-pane input{
+    height: 50px;
+    font-family: "Poppins", Sans-serif;
+    font-size: 18px;
+    font-weight: 300; 
+    color: #495057;
+}
+.check input{
+    height: inherit;  
+}
+
+.tab-pane select{
+    height: 50px;
+    font-size: 16px; 
+    color: #495057;
+}
+.special-request .check label{
+    font-weight: 600 !important;
+    color:#5B5B5B ;
+}
+.special-request .total{
+    cursor: pointer;
+    background-color: #2A9FE2;
+    color: #fff;
+    border: none;
+    border-radius: 5PX;
+    padding: 5px 0px;
+    font-size: 18px;
+    font-weight: 500;
+    width: 100px;
+}
+.special-request .shipping_btn{
+    background-color: #EF9132;
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    padding: 12px 0px;
+    font-size: 15px;
+    font-weight: 600;
+}
+.special-request .shipping_btn:hover{
+    background-color: #ED7700;  
+}
+.special-request .placeorder{
+    background-color: #EF9132;
+    color: #fff;
+    border: none;
+    border-radius: 5PX;
+    padding: 8px 10px;
+    font-size: 18px;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+.special-request .placeorder:hover{
+    background-color: #ED7700;
+    color: #fff;
+}
+.special-request h2{
+    color: #5B5B5B;
+    font-family: "Playfair Display", Sans-serif;
+    font-size: 42px;
+    padding: 30px 0px;
+}
+/*......term-condition page styling start from here .....*/
+.term-condition{
+    padding-bottom: 100px;
+}
+.term-condition h1{
+    padding: 100px 0px 80px 0px;
+}
+.term-condition a{
+    text-decoration: none;
+    color: #EF9132;
+}
+.term-condition a:hover{
+    text-decoration: none;
+    color: #EF9132;
+}
+
+/*........ Styling for Mobile screen ......*/
+
+@media(min-width: 992px) and (max-width: 1199px)
+{ 
+        .partners img{
+            width: 230px;
+            height: auto;
+        }
+        .partners{
+            padding: 15px;
+        }
+        .topnav .nav-item{
+            padding: 20px 0px;
+        }
+        .topnav a{
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #EF9132;
+            text-decoration: none;       
+        }
+        /* .topbanner .left-col{
+                padding:20px 10px;
+        } */
+        .topbanner h1{
+            font-size: 45px;
+        }
+        .topbanner h2{
+            font-size: 30px;
+        }
+        .topbanner p{
+            font-size: 18px;
+        }
+        .topbanner .medium{
+            text-align: center; 
+        }
+        .topbanner .button{
+            font-size: 5px;
+        }
+        .topbanner .right-col{
+            margin: 20px 0px 0px 16px;
+            text-align: center;
+        }
+        .topbanner .right-col{
+            margin-top: 20px !important;
+        }
+}
+@media (min-width: 768px) and (max-width: 991px) 
+{       
+        .style-h1{
+            color: #5B5B5B;
+            font-family: "Playfair Display", Sans-serif;
+            font-size: 30px;
+            font-weight: 700;
+            letter-spacing: 0.6px;   
+        }
+        .style-h2{
+            color: #5B5B5B;
+            font-family: "Playfair Display", Sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.6px;   
+        }
+        .style-h4{
+            color: #5B5B5B;
+            font-family: "Playfair Display", Sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.6px;   
+        }
+        .style-p{
+            color: #5B5B5B;
+            font-family: "Poppins", Sans-serif;
+            font-size: 15px;
+            font-weight: 400;
+        }
+        .partners img{
+            width: 230px;
+            height: auto;
+        }
+        .partners{
+            padding: 15px;
+        }
+        .topnav .bt{
+            margin-left: 333px;     
+        }
+        /* .topbanner .left-col{
+                padding:20px 10px;
+        } */
+        .topbanner h1{
+            font-size: 52px;
+        }
+        .topbanner h2{
+                /*font-size: 42px;*/
+            font-size: 26px;
+        }
+        .topbanner p{
+            font-size: 19px;
+        }
+        .topbanner .medium{
+            text-align: center; 
+        }
+        .topbanner .right-col{
+            margin: 20px 0px 0px 16px;
+            text-align: center;
+        }
+        .work-heading {
+            padding: 20px 0px;
+        }
+        .card-section .btn{
+            margin: 30px 0px 50px 0px;
+        }
+        .courier {
+            padding: 30px 0px 0px 0px;
+        }
+        .testimonials{
+            padding-bottom:40px ;
+            padding-top: 40px;
+        }
+        .profile{
+            padding: 30px 5px 10px;
+            background-color: white;
+            height: 700px;
+        }
+        .estimate{
+            padding-bottom:40px ;
+            padding-top: 40px;
+        }
+        .slick-slide img {
+            width: 180px;
+            height: 70px;   
+        }
+        .slider-brand .slide{
+            margin: 0px 15px 0px 15px;
+        }
+        .banner-h1{
+            font-size: 74px;
+        }
+        .shopper-page .btn{
+            padding: 23px 0px 23px 0px;
+            margin-bottom: 80px;   
+        }
+         #dynamicTable input{
+            width: 100px;
+        }
+}
+@media (max-width: 780px) 
+{ 
+        .topbanner .right-col{
+            margin-top: 20px !important;
+        }
+}
+@media only screen and (max-width: 575.98px) 
+{       
+        /* .navbar-nav  .active li{
+                border-bottom:3px solid #EF9132;      
+        } */
+        .topbar .spacing{
+            margin-bottom: 10px;
+        }
+        .topbar #button{
+            padding: 10px 8px 10px 8px;
+        }
+        .topbar .email{
+            display: none;
+        }
+        .style-h1{
+            color: #5B5B5B;
+            font-family: "Playfair Display", Sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 0.6px;   
+        }
+        .style-h2{
+            color: #5B5B5B;
+            font-family: "Playfair Display", Sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.6px;   
+        }
+        .style-h4{
+            color: #5B5B5B;
+            font-family: "Playfair Display", Sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.6px;   
+        }
+        .style-p{
+            color: #5B5B5B;
+            font-family: "Poppins", Sans-serif;
+            font-size: 15px;
+            font-weight: 400;
+        }
+        body .custom-btn{
+            padding: 10px 10px 10px 10px; 
+        }
+        /* .topbanner .left-col{
+                padding:20px 10px;
+        } */
+        .topbanner .medium{
+            text-align: center;
+        }
+        .topbanner .right-col h1{
+            font-size: 25px;
+        }
+        .topbanner .left-col{
+            margin-bottom: 30px;
+        }
+        .topbanner .right-col{
+            margin-top: 20px !important;
+        }
+        .partners img{
+            width: 220px;
+            height: auto;
+        }
+        .partners{
+            padding: 13px;
+        }
+        .topnav .nav-item{
+            padding: 5px 4px;
+        }
+       
+        .topbanner{
+            padding: 10px 0px 10px 0px;
+        }
+        .topbanner .left-col, .right-col{
+            background-color: #fff;
+            padding-top: 10px;
+        }
+        .topbanner .left-col, .right-col{
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+        .card-section .card-body{
+            height: auto;
+        }
+        .work-heading{
+            padding: 10px 0px 10px 0px;
+        }
+        .card-section .btn{
+            margin: 20px 0px 40px 0px;
+        }
+        .courier {
+            padding: 40px 0px 25px 0px;
+        }
+        .tracking{
+            padding-top: 40px;
+            padding-bottom:40px;
+        }
+        .testimonials{
+            padding-bottom:10px ;
+            padding-top: 10px;
+            background-color: #F6F6F6;
+        }
+        .testimonials p{
+            font-size: 15px;
+        }
+        .estimate{
+            padding-bottom:60px;
+            padding-top: 60px;
+        }
+        .estimate p{
+            font-size: 15px;    
+        }
+        .estimate h3{
+            color: #5B5B5B;
+            font-family: "Poppins", Sans-serif;
+            font-size: 33px;    
+        }
+        .estimate .col-12{
+            padding-bottom: 10px;
+        }
+        .slick-slide img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .banner-h1{
+            font-size: 50px;
+             
+        }
+        .shopper-banner{
+            padding: 100px 0px 100px 0px;
+        }
+        .shipper-banner{
+            padding: 100px 0px 100px 0px;
+        }
+        .shopper-page .btn{
+            padding: 10px 20px 10px 20px;
+            margin-bottom: 40px;               
+        }
+        .option-steps::before { /* the custom styled bullets */
+            display: none;
+        }
+        .profile{
+            height: auto;
+        }
+        .options p{
+            margin-left: 0px;
+        }
+        .aboutus-banner{
+            padding: 100px 0px 100px 0px;
+        }
+        .aboutus-padding {
+            padding: 30px 0px 0px 0px;
+        }
+        .contactus-banner{
+            padding: 100px 0px 100px 0px;
+        }
+        .contactmap{
+            padding: 70px 0px 70px 0px;
+        }
+        .pickpage-padding{
+            padding: 70px 0px 50px 0px;
+        }
+        .fulfillment-banner{
+            padding: 100px 0px 100px 0px;
+        }
+        .slick-slide img {
+            width: 150px;
+            height: 80px;
+        }
+        #owl-demo img {
+            margin-left: 100px;
+        }
+        #dynamicTable input{
+            width: 130px;
+        }
+        .tab-pane  label{
+            color: #696969;
+            font-family: "Poppins", Sans-serif;
+            font-size: 14px;
+            font-weight: bold;  
+            margin-bottom: 5px; 
+        } 
+}

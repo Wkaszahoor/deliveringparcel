@@ -1,0 +1,1345 @@
+@import "tailwindcss";
+@import "./vendor-overrides.css";
+
+@theme {
+    --color-brand: #0d6efd;
+    --color-brand-dark: #0a58ca;
+    --color-brand-light: #e7f1ff;
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+/* Defensive: several elements on the public homepage (decorative blobs with
+   large negative offsets, the courier-logo marquee track, the centered nav
+   pill) are absolutely/fixed positioned or translated. If any of them ever
+   compute even a few pixels wider than the viewport, the page gets a
+   horizontal scrollbar and everything shifts — which reads as content
+   losing a few pixels off its left edge. This guarantees it can't happen. */
+html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+/* Public frontend: main.js toggles this class on the mobile-nav icons.
+   Bootstrap CSS (which used to define it) has been removed from the
+   public pages, so we keep a tiny equivalent here. */
+.d-none {
+    display: none !important;
+}
+
+/* ==========================================================================
+   Public frontend (deliveringparcel.com) — Bootstrap replacement components
+   --------------------------------------------------------------------------
+   home.blade.php / contactus.blade.php / eaboutus.blade.php and the shared
+   fmaster layout used to rely on Bootstrap's .btn / .form-control / .badge
+   component CSS. Bootstrap has been removed from those pages, so these are
+   small Tailwind-based equivalents kept under the original class names to
+   avoid having to touch every markup occurrence.
+   ========================================================================== */
+@layer components {
+    .btn {
+        @apply inline-flex items-center justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium transition-colors duration-150 cursor-pointer;
+    }
+    .btn-primary {
+        @apply bg-brand text-white hover:bg-brand-dark;
+    }
+    .btn-outline-primary {
+        @apply border-brand text-brand bg-transparent hover:bg-brand hover:text-white;
+    }
+    .btn-lg {
+        @apply px-6 py-3 text-base;
+    }
+    .btn-sm {
+        @apply px-3 py-1.5 text-xs;
+    }
+    .form-control {
+        @apply block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-800 shadow-sm focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand;
+    }
+    .badge {
+        @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
+    }
+    .badge-primary {
+        @apply bg-brand-light text-brand-dark;
+    }
+    .badge-success {
+        @apply bg-green-100 text-green-800;
+    }
+}
+
+/* Slim contextual sub-sidebar active-link state */
+.dp2-subnav-link[data-active="true"] {
+    background-color: var(--color-brand-light);
+    color: var(--color-brand-dark);
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   Public homepage design system — home.blade.php only.
+   Restrained corporate direction (second redesign pass, see
+   .impeccable/surfaces/home.md for the full contract): neutrals + one
+   dominant signal-blue accent, one muted bronze support tone. Replaces the
+   prior consumer-facing gold/vermilion/instrument-panel pass — same
+   --dp-* variable names throughout, new hues/faces, so nothing downstream
+   needed rewiring twice.
+   Fonts self-hosted per the project's no-external-fonts convention (see
+   fcommon/head.blade.php): Hanken Grotesk (body/UI) + Bricolage Grotesque
+   (display) — both variable fonts, one file covers their weight range.
+   Namespaced with --dp-* / .dp-* so it never touches --color-brand or any
+   admin-panel styling, both of which share this same compiled stylesheet.
+   ========================================================================== */
+@font-face {
+    font-family: 'DP Body';
+    src: url('/frontend/assets/fonts/HankenGrotesk-Variable.woff2') format('woff2-variations');
+    font-weight: 100 900;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'DP Display';
+    src: url('/frontend/assets/fonts/BricolageGrotesque-Variable.woff2') format('woff2-variations');
+    font-weight: 200 800;
+    font-display: swap;
+}
+
+:root {
+    /* Brand-pinned: read directly off the real Delivering Parcel hexagon
+       logo (orange + cyan-blue chevrons) — see .impeccable/surfaces/home.md. */
+    --dp-ink: #14171a;
+    --dp-ink-soft: #5c6066;
+    --dp-paper: #f9f9f7;
+    --dp-accent: #f5951e;
+    --dp-accent-dark: #d97a0e;
+    --dp-accent-soft: #fdecd8;
+    --dp-cyan: #29abe2;
+    --dp-cyan-soft: #e3f4fc;
+    --dp-cyan-dark: #1b87b8;
+    /* Dark section background (was --dp-ink, i.e. flat near-black). The logo
+       file itself (public/images/dp.svg) only contains two colors —
+       #29abe2 cyan and #ef9132 orange, no navy — so this is that same cyan
+       hue shaded down to section-background darkness, not an unrelated navy
+       invented from scratch. --dp-ink keeps its original job as the default
+       body-text/ink color; this is only for the dark bands that used to sit
+       on pure black (hero, "shop any store", closing CTA, orders bar). */
+    --dp-navy: #0d2b3f;
+    --dp-line: #e5e3de;
+    --dp-console: #ffffff;
+    --dp-console-field: #f2f2f0;
+    --dp-console-text: #14171a;
+    --dp-console-muted: #8b8f95;
+}
+
+/* @layer base (not left unlayered like most of this file's dp-* rules):
+   Tailwind v4 gives every `@layer`-declared rule lower cascade priority than
+   unlayered CSS, regardless of source order. These set the *default* ink
+   text color/font for the whole page — they must lose to an explicit
+   `text-white`/`text-white/70` utility (a Tailwind `@layer utilities` rule)
+   wherever a section actually needs light text on a dark background, e.g.
+   the dp-ink hero on ebecomeshopper.blade.php. Left unlayered, this
+   previously beat `text-white` everywhere in .dp-home regardless of which
+   came first in the file, silently rendering ink-on-ink/near-black text on
+   every dark section sitewide. */
+@layer base {
+    .dp-home { font-family: 'DP Body', 'Hanken Grotesk', system-ui, sans-serif; color: var(--dp-ink); background: var(--dp-paper); }
+    .dp-home h1, .dp-home h2, .dp-home h3, .dp-home .dp-display {
+        font-family: 'DP Display', 'Bricolage Grotesque', system-ui, sans-serif;
+        font-weight: 300;
+        letter-spacing: -0.015em;
+        line-height: 1.04;
+        color: var(--dp-ink);
+    }
+    .dp-home h1 { font-weight: 250; }
+}
+
+/* Real, sequential step numbers only (see craft floor: decorative section
+   numerals are banned unless the sequence is real information). */
+.dp-step-number {
+    font-family: 'DP Display', 'Bricolage Grotesque', system-ui, sans-serif;
+    font-weight: 300;
+}
+
+/* ── Drifting gradient-mesh blobs (hero atmosphere) ───────────────────── */
+@keyframes dpDrift1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(4%,6%) scale(1.08); } }
+@keyframes dpDrift2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-5%,-4%) scale(1.1); } }
+.dp-blob { position: absolute; border-radius: 999px; filter: blur(60px); pointer-events: none; }
+.dp-blob-1 { animation: dpDrift1 16s ease-in-out infinite; }
+.dp-blob-2 { animation: dpDrift2 20s ease-in-out infinite; }
+
+/* ── Hero focal entrance ──────────────────────────────────────────────
+   One rehearsed sequence on load (not a scroll reveal — the hero is
+   already in the first viewport): headline, copy, route console, trust
+   badges, stat strip and the globe art each settle in on their own beat,
+   confident deceleration, exit-speed-matched rise. */
+@keyframes dpHeroIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.dp-hero-in { animation: dpHeroIn .7s cubic-bezier(0.16,1,0.3,1) both; }
+.dp-hero-in-1 { animation-delay: .05s; }
+.dp-hero-in-2 { animation-delay: .16s; }
+.dp-hero-in-3 { animation-delay: .28s; }
+.dp-hero-in-4 { animation-delay: .42s; }
+.dp-hero-in-5 { animation-delay: .52s; }
+.dp-hero-in-art { animation-delay: .24s; }
+
+/* "Live rates" indicator dot — a shadow pulse (not scale, no layout
+   jank) so the claim of live data actually reads as live. */
+@keyframes dpLivePulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(245,149,30,.5); }
+    50%      { box-shadow: 0 0 0 5px rgba(245,149,30,0); }
+}
+.dp-console-dot { animation: dpLivePulse 2s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+    .dp-blob-1, .dp-blob-2 { animation: none; }
+    .dp-console-dot { animation: none; }
+    .dp-hero-in, .dp-hero-in-1, .dp-hero-in-2, .dp-hero-in-3,
+    .dp-hero-in-4, .dp-hero-in-5, .dp-hero-in-art {
+        animation: none; opacity: 1; transform: none;
+    }
+}
+
+/* ── Grain overlay for texture on dark/light bands ─────────────────────── */
+.dp-grain { position: relative; }
+.dp-grain::after {
+    content: '';
+    position: absolute; inset: 0;
+    opacity: .045;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── Infinite logo marquee ──────────────────────────────────────────── */
+@keyframes dpMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.dp-marquee-track { display: flex; width: max-content; animation: dpMarquee 28s linear infinite; }
+.dp-marquee:hover .dp-marquee-track { animation-play-state: paused; }
+.dp-marquee-fade {
+    position: absolute; top: 0; bottom: 0; width: 5rem; z-index: 2; pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+    .dp-marquee-track { animation: none; }
+}
+
+/* "Recent orders" ticker — a slim, dark bar fixed above the site
+   header/logo/nav (homepage only), which is itself pushed down by this
+   bar's height via the `body.dp-has-orders-bar` overrides below. Dark to
+   read as a seamless continuation of the header's own dark gradient.
+
+   Fully self-contained: its own keyframe and classes, not shared with the
+   courier-logo marquee further down the page (.dp-marquee-track etc.) —
+   that strip's hover-to-pause behavior doesn't fit a bar that sits above
+   the header, where the cursor rests constantly just navigating the site.
+
+   Deliberately exempt from prefers-reduced-motion, unlike this page's
+   purely decorative motion (blobs, Ken Burns, badge pops, etc.): this
+   ticker IS the content — a static, silent version says nothing — same
+   reasoning as the six-steps ticker's state-advancing interval elsewhere
+   on this page. Confirmed via this machine's own registry
+   (HKCU\Control Panel\Desktop\WindowMetrics!MinAnimate = 0) that "Show
+   animations in Windows" is off, which is exactly what was making this bar
+   (correctly) sit still under the site-wide reduced-motion rule before
+   this exemption. */
+:root {
+    --dp-orders-bar-height: 36px;
+}
+.dp-orders-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1040;
+    background: var(--dp-navy);
+    display: flex;
+    align-items: stretch;
+}
+/* Scrolling ticker occupies whatever width is left of the language cell;
+   its own overflow/fade context so the switcher never gets scrolled under. */
+.dp-orders-scroll {
+    position: relative;
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+}
+.dp-orders-fade {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 4rem;
+    z-index: 2;
+    pointer-events: none;
+}
+@keyframes dpOrdersSlide {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+.dp-orders-track {
+    display: flex;
+    width: max-content;
+    padding: .55rem 0;
+    animation: dpOrdersSlide 34s linear infinite;
+}
+/* Static language cell, pinned to the bar's right edge — doesn't scroll
+   with the ticker. Separated with a hairline so it reads as its own control. */
+.dp-orders-lang {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    padding: 0 .85rem;
+    border-left: 1px solid rgba(255,255,255,.12);
+}
+.dp-lang-trigger-bar {
+    padding: .3rem .5rem;
+    border-radius: 999px;
+    background: transparent;
+    border: 1.5px solid rgba(255,255,255,.3);
+    color: #fff;
+}
+.dp-lang-trigger-bar:hover {
+    background: rgba(255,255,255,.12);
+    border-color: rgba(255,255,255,.5);
+}
+/* Push the fixed header down below the bar, and grow the hero's own
+   top clearance by the same amount, homepage-only (see fmaster.blade.php). */
+body.dp-has-orders-bar #header {
+    top: var(--dp-orders-bar-height);
+}
+body.dp-has-orders-bar #hero {
+    padding-top: calc(9rem + var(--dp-orders-bar-height));
+}
+@media (min-width: 1024px) {
+    body.dp-has-orders-bar #hero {
+        padding-top: calc(11rem + var(--dp-orders-bar-height));
+    }
+}
+.dp-orders-item {
+    padding: 0 1.75rem;
+    font-size: .78rem;
+    font-weight: 600;
+    color: rgba(255,255,255,.85);
+    white-space: nowrap;
+}
+.dp-orders-badge {
+    width: 18px;
+    height: 18px;
+    color: var(--dp-ink);
+    background: linear-gradient(135deg, var(--dp-accent), var(--dp-cyan));
+}
+.dp-orders-dot {
+    display: inline-block;
+    width: 3px;
+    height: 3px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.35);
+}
+.dp-orders-price {
+    font-family: 'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
+    color: #fff;
+    font-weight: 700;
+}
+
+/* ── "Six steps from cart to your door" journey line ────────────────────
+   One continuous line down the step list, marching-dash texture plus a
+   single glowing dot travelling its length on an endless loop — standing
+   in for the literal parcel moving from cart to door. One authored motion
+   for the whole section, not per-card decoration. */
+.dp-journey-line {
+    background: repeating-linear-gradient(to bottom, var(--dp-accent) 0 10px, transparent 10px 22px);
+    background-size: 2px 22px;
+    animation: dpJourneyDash 1.1s linear infinite;
+    opacity: .5;
+}
+@keyframes dpJourneyDash { to { background-position: 0 -22px; } }
+
+.dp-journey-dot {
+    top: 0;
+    width: 10px;
+    height: 10px;
+    margin-left: -4px;
+    border-radius: 999px;
+    background: var(--dp-accent);
+    box-shadow: 0 0 0 4px var(--dp-accent-soft), 0 0 14px 2px rgba(245,149,30,.6);
+    animation: dpJourneyTravel 9s linear infinite;
+}
+@keyframes dpJourneyTravel {
+    0%   { top: 0; opacity: 0; }
+    5%   { opacity: 1; }
+    95%  { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+}
+
+.dp-journey-node {
+    background: linear-gradient(135deg, var(--dp-accent), var(--dp-cyan));
+    color: #fff;
+    box-shadow: 0 10px 22px -10px rgba(245,149,30,.55);
+    outline: 3px solid transparent;
+    outline-offset: 4px;
+    transition: outline-color .3s ease, transform .3s ease;
+}
+.dp-journey-step-num {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--dp-ink);
+    font-size: 11px;
+    font-weight: 800;
+    border: 2px solid var(--dp-paper);
+    box-shadow: 0 2px 6px rgba(20,23,26,.25);
+}
+@media (prefers-reduced-motion: reduce) {
+    .dp-journey-line { animation: none; }
+    .dp-journey-dot { display: none; }
+}
+
+/* ── Desktop pointer-flow ribbon (user-pinned reference layout) ──────────
+   Six colour blocks, each carrying a triangular pointer toward its label
+   (up for odd steps, down for even steps). --dp-flow-color is set per block
+   inline so the pointer pseudo-element can match its own block's fill. */
+.dp-flow-block {
+    height: 84px;
+    border-radius: 14px;
+    background: var(--dp-flow-color);
+    color: #fff;
+    box-shadow: 0 14px 28px -16px rgba(20,23,26,.35);
+    outline: 3px solid transparent;
+    outline-offset: 4px;
+    transition: transform .25s ease, filter .2s ease, outline-color .3s ease;
+}
+.dp-flow-block:hover { transform: translateY(-6px); filter: brightness(1.08); }
+
+/* ── Live status ticker ("Step N: Title — In Progress/Done") ─────────────
+   Highlights the matching step node/block in sync via a shared outline
+   colour, chosen instead of box-shadow so it composes independently of each
+   element's own drop shadow rather than replacing it. */
+.dp-step-ticker-progress { outline-color: var(--dp-accent); transform: scale(1.06); }
+.dp-step-ticker-done { outline-color: #1a8f5e; transform: scale(1.06); }
+
+.dp-ticker {
+    background: #fff;
+    border: 1px solid var(--dp-line);
+    box-shadow: 0 10px 24px -16px rgba(20,23,26,.3);
+}
+.dp-ticker-icon { background: var(--dp-accent-soft); color: var(--dp-accent-dark); }
+.dp-ticker-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: #e0a020;
+    animation: dpTickerPulse 1.2s ease-in-out infinite;
+}
+@keyframes dpTickerPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: .35; transform: scale(1.4); }
+}
+.dp-ticker-status-progress { color: #b8790f; font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+.dp-ticker-status-done { color: #1a8f5e; font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+@media (prefers-reduced-motion: reduce) {
+    .dp-ticker-dot { animation: none; }
+    .dp-step-ticker-progress, .dp-step-ticker-done { transform: none; }
+}
+.dp-flow-num {
+    font-family: 'DP Display', 'Bricolage Grotesque', system-ui, sans-serif;
+    font-size: 1.7rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+.dp-flow-icon { font-size: 1.3rem; opacity: .92; }
+.dp-flow-up::before {
+    content: '';
+    position: absolute;
+    top: -13px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 13px solid transparent;
+    border-right: 13px solid transparent;
+    border-bottom: 13px solid var(--dp-flow-color);
+}
+.dp-flow-down::after {
+    content: '';
+    position: absolute;
+    bottom: -13px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 13px solid transparent;
+    border-right: 13px solid transparent;
+    border-top: 13px solid var(--dp-flow-color);
+}
+
+/* ── Diagonal section cut ──────────────────────────────────────────────── */
+.dp-diagonal-down { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 3vw)); }
+.dp-diagonal-up   { clip-path: polygon(0 3vw, 100% 0, 100% 100%, 0 100%); }
+
+/* .dp-eyebrow intentionally removed: the craft floor bans decorative
+   kicker/eyebrow labels above headings outright — "no brief earns it back."
+   Headings now carry their own weight via DP Display's scale instead. */
+
+.dp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    font-family: 'DP Body', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: .95rem;
+    padding: .85rem 1.6rem;
+    border-radius: 999px;
+    transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+}
+.dp-btn-accent {
+    /* Ink-on-accent, not white-on-accent — see .dp-console-submit for the
+       measured contrast reasoning (white on this orange is ~2.3:1, ink is ~9:1). */
+    background: var(--dp-accent);
+    color: var(--dp-ink);
+    box-shadow: 0 10px 24px -8px rgba(245,149,30,.4);
+}
+.dp-btn-accent:hover { background: var(--dp-accent-dark); transform: translateY(-1px); }
+.dp-btn-ink {
+    background: var(--dp-ink);
+    color: #fff;
+}
+.dp-btn-ink:hover { background: #3a3a3a; transform: translateY(-1px); }
+.dp-btn-outline {
+    background: transparent;
+    color: var(--dp-ink);
+    border: 1.5px solid var(--dp-line);
+}
+.dp-btn-outline:hover { border-color: var(--dp-ink); }
+
+.dp-card {
+    background: #fff;
+    border: 1px solid var(--dp-line);
+    border-radius: 10px;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.dp-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -20px rgba(31,31,31,.25);
+    border-color: #cfcbc4;
+}
+
+/* Region-card globe badge ("Parcel forwarding across four continents") —
+   one motion story: the globe spins slowly in place (a flat icon glyph is
+   symmetric enough that a full rotation never goes edge-on, unlike a raster
+   illustration), and a single soft ring pulses outward behind it once per
+   cycle to read as "live global reach" rather than a static icon chip. */
+.dp-region-badge {
+    background: linear-gradient(135deg, var(--dp-accent), var(--dp-cyan));
+    box-shadow: 0 10px 22px -10px rgba(245,149,30,.55);
+    isolation: isolate;
+}
+.dp-region-badge-ping {
+    z-index: -1;
+    border: 2px solid var(--dp-accent);
+    opacity: 0;
+    animation: dpRegionPing 4s cubic-bezier(0,.5,.5,1) infinite;
+}
+.dp-region-globe {
+    color: #fff;
+    animation: dpGlobeSpin 10s linear infinite;
+}
+@keyframes dpGlobeSpin { to { transform: rotate(360deg); } }
+@keyframes dpRegionPing {
+    0%   { transform: scale(1); opacity: .55; }
+    75%, 100% { transform: scale(1.55); opacity: 0; }
+}
+/* Shopper hero avatar's two orbit rings (ebecomeshopper.blade.php) — flags
+   revolve clockwise on the outer ring, store logos counter-clockwise on the
+   inner one, around her as the fixed center. Classic single-element CSS
+   orbit: each item sits centered on the avatar box (top/left 50% + negative
+   margin), then `rotate(angle) translateX(radius) rotate(-angle)` sweeps it
+   around that center while the trailing counter-rotation cancels the
+   leading one, so the flag/logo itself never appears to spin — only its
+   position on the circle does. Every item on a ring shares the same
+   keyframe/duration; only its negative animation-delay differs (set in the
+   Blade loop, spaced evenly around the ring) so they read as one continuous
+   orbit instead of N badges happening to move in sync.
+   Purely decorative, so — unlike this page's informational step ticker —
+   it pauses under prefers-reduced-motion rather than needing an exemption.
+   Pausing (not `animation: none`) matters here specifically: each item's
+   negative delay has already placed it at a different point on the circle
+   by the time the animation would start, so pausing freezes that same
+   evenly-spaced ring in place instead of collapsing every item back to the
+   identical 0% keyframe position. */
+.dp-orbit-item {
+    top: 50%;
+    left: 50%;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+.dp-orbit-item-flag {
+    width: 2.4rem;
+    height: 2.4rem;
+    margin: -1.2rem 0 0 -1.2rem;
+    padding: .3rem;
+    background: #fff;
+    --dp-orbit-radius: 13.5rem;
+    animation-name: dpOrbitClockwise;
+    animation-duration: 24s;
+}
+.dp-orbit-item-store {
+    width: 3.2rem;
+    height: 3.2rem;
+    margin: -1.6rem 0 0 -1.6rem;
+    padding: .4rem;
+    background: #fff;
+    --dp-orbit-radius: 9.5rem;
+    animation-name: dpOrbitCounterClockwise;
+    animation-duration: 17s;
+}
+@keyframes dpOrbitClockwise {
+    from { transform: rotate(0deg) translateX(var(--dp-orbit-radius)) rotate(0deg); }
+    to   { transform: rotate(360deg) translateX(var(--dp-orbit-radius)) rotate(-360deg); }
+}
+@keyframes dpOrbitCounterClockwise {
+    from { transform: rotate(0deg) translateX(var(--dp-orbit-radius)) rotate(0deg); }
+    to   { transform: rotate(-360deg) translateX(var(--dp-orbit-radius)) rotate(360deg); }
+}
+.dp-orbit-glow {
+    background: radial-gradient(circle, var(--dp-cyan-soft), transparent 70%);
+    opacity: .5;
+    filter: blur(10px);
+}
+@media (prefers-reduced-motion: reduce) {
+    .dp-orbit-item { animation-play-state: paused; }
+}
+
+/* "What is parcel forwarding" 3-node mini flow (ebecomeshopper.blade.php) —
+   one authored motion for the whole diagram: a dashed connector marches
+   continuously between the three nodes, standing in for the parcel's own
+   trip from shop to local address to shopper, rather than animating each
+   icon separately. */
+.dp-forward-line {
+    height: 2px;
+    background-image: repeating-linear-gradient(to right, var(--dp-line) 0 8px, transparent 8px 16px);
+    background-size: 32px 2px;
+    animation: dpForwardMarch 1.1s linear infinite;
+}
+@keyframes dpForwardMarch { to { background-position: 32px 0; } }
+@media (prefers-reduced-motion: reduce) {
+    .dp-forward-line { animation: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dp-region-globe { animation: none; }
+    .dp-region-badge-ping { display: none; }
+}
+
+.dp-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    background: #fff;
+    border: 1px solid var(--dp-line);
+    border-radius: 999px;
+    padding: .55rem 1rem;
+    font-size: .82rem;
+    font-weight: 600;
+    color: var(--dp-ink-soft);
+}
+
+.dp-noise {
+    background-image: radial-gradient(circle at 1px 1px, rgba(31,31,31,.06) 1px, transparent 0);
+    background-size: 22px 22px;
+}
+
+/* ── Route console — the shipping quote form's signature treatment ──────
+   Restrained-corporate replacement for the prior dark instrument panel:
+   a precise bordered console with a monospaced route read-out, not a
+   skeuomorphic hardware panel — that fit the earlier consumer direction. */
+.dp-console {
+    background: var(--dp-console);
+    border: 1px solid var(--dp-line);
+    border-radius: 12px;
+    box-shadow: 0 24px 48px -28px rgba(20,23,26,.28);
+}
+.dp-console-readout {
+    font-family: 'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
+    font-size: .68rem;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--dp-console-muted);
+}
+.dp-console-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--dp-accent);
+}
+.dp-console-field {
+    background: var(--dp-console-field);
+    color: var(--dp-console-text);
+    border-radius: 8px;
+}
+/* The real <select name="shipfrom"> — visible fallback when Alpine hasn't
+   mounted (see home.blade.php hero form). Styled to sit flush with the rest
+   of the console even though it's normally hidden the instant JS runs. */
+.dp-console-native-select {
+    background: var(--dp-console-field);
+    color: var(--dp-console-text);
+    border-radius: 8px;
+    appearance: auto;
+}
+.dp-console-submit {
+    /* Ink-on-accent, not white-on-accent: white text on this orange measures
+       ~2.3:1 — fails the 4.5:1 floor and reads as a dull, half-lit button
+       exactly like a low-contrast pairing does. Near-black ink on the same
+       orange measures ~9:1, and it's already the page's text color, so the
+       button reads as more confident, not less. */
+    background: var(--dp-accent) !important;
+    color: var(--dp-ink) !important;
+    border-radius: 12px;
+    box-shadow: 0 8px 22px -6px rgba(245,149,30,.55);
+    transition: background-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.dp-console-submit:hover {
+    background: var(--dp-accent-dark) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 12px 28px -8px rgba(245,149,30,.75);
+}
+
+/* Brand/courier logo chips on the dark "International reach" marquee band. */
+.dp-home a.curier-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: .85rem;
+    padding: 1.1rem 1.6rem;
+    min-height: 72px;
+    transition: background-color .15s ease, transform .15s ease;
+}
+.dp-home a.curier-img:hover {
+    background: rgba(255,255,255,.14);
+    transform: translateY(-2px);
+}
+.dp-home a.curier-img img {
+    filter: grayscale(1) brightness(0) invert(1);
+    opacity: .85;
+    max-height: 26px;
+    width: auto;
+}
+.dp-home a.curier-img:hover img { opacity: 1; }
+
+/* ── Hero polish ─────────────────────────────────────────────────────────
+   The fixed site header renders white logo/nav-action text (right, for the
+   dark photo hero used on other public pages), but the homepage hero runs
+   on the light --dp-paper background. This gradient band gives the header
+   a dark backdrop to sit on at the top of the page, without touching the
+   shared header CSS used by every other page. */
+.dp-hero-topband {
+    height: 170px;
+    background: linear-gradient(180deg, var(--dp-ink) 0%, rgba(20,23,26,.75) 55%, rgba(20,23,26,0) 100%);
+}
+@media (max-width: 767px) {
+    .dp-hero-topband { height: 120px; }
+}
+
+.dp-hero-art-glow {
+    background: radial-gradient(circle at 40% 30%, var(--dp-accent-soft), transparent 70%);
+}
+.dp-hero-img {
+    filter: drop-shadow(0 30px 40px rgba(20,23,26,.14));
+}
+
+/* Bounded 3D tilt for the hero shopper/globe raster — deliberately not a
+   full 360° spin: a flat image rotated all the way around its vertical
+   axis goes edge-on and disappears at 90°/270°. Oscillating within a safe
+   range reads as "the globe turning" while staying fully visible throughout. */
+.dp-globe-turn-stage { perspective: 1400px; position: relative; }
+.dp-route-canvas { pointer-events: none; z-index: 2; }
+@keyframes dpGlobeTurn {
+    0%, 100% { transform: rotateY(-14deg); }
+    50%      { transform: rotateY(14deg); }
+}
+.dp-globe-turn {
+    filter: drop-shadow(0 30px 40px rgba(20,23,26,.16));
+    transform-style: preserve-3d;
+    animation: dpGlobeTurn 9s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+    .dp-globe-turn { animation: none; transform: rotateY(0deg); }
+}
+
+/* "What is parcel forwarding?" illustration — one authored motion, not a
+   pile of effects: the scene breathes with a slow Ken Burns drift (it
+   lives in a fixed, overflow-hidden card, so the zoom never exposes an
+   edge), and a single soft diagonal sheen glances across it once per
+   cycle, like light catching a photograph in a frame. */
+@keyframes dpAboutBreathe {
+    0%, 100% { transform: scale(1) translate(0, 0); }
+    50%      { transform: scale(1.07) translate(-0.5%, -1%); }
+}
+.dp-about-anim {
+    animation: dpAboutBreathe 14s ease-in-out infinite;
+}
+.dp-about-frame { isolation: isolate; }
+.dp-about-sheen {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.35) 46%, rgba(255,255,255,.05) 54%, transparent 70%);
+    transform: translateX(-120%);
+    animation: dpAboutSheen 7s cubic-bezier(.22,.61,.36,1) infinite;
+    animation-delay: 2.5s;
+}
+@keyframes dpAboutSheen {
+    0%   { transform: translateX(-120%); }
+    28%, 100% { transform: translateX(120%); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .dp-about-anim { animation: none; }
+    .dp-about-sheen { display: none; }
+}
+
+/* "How to become a shopper" — a different authored entrance from the About
+   section above (clip-path wipe + badge pop instead of Ken Burns + sheen),
+   all riding on the section's own single AOS trigger. Every rule here is
+   scoped under `.dp-shopper-section.aos-animate`, the class AOS itself adds
+   to the outer container when it scrolls into view — nothing is ever given
+   a hidden default/pre-animation state outside that scope, so if AOS/JS
+   never runs, the image, badge and copy simply render in their plain,
+   already-visible resting position instead of staying stuck hidden. */
+/* Soft ambient pulse behind the card — always-on decorative background glow
+   (like .dp-hero-art-glow/.dp-blob elsewhere), not gated behind AOS since it
+   carries no content and never needs a safe fallback state. Echoes the
+   illustration's own glowing network lines and live-data chat bubble. */
+.dp-shopper-glow {
+    background: radial-gradient(circle at 35% 35%, var(--dp-accent-soft), transparent 60%),
+                radial-gradient(circle at 70% 65%, var(--dp-cyan-soft), transparent 55%);
+    animation: dpShopperGlowPulse 7s ease-in-out infinite;
+}
+@keyframes dpShopperGlowPulse {
+    0%, 100% { opacity: .6; transform: scale(1); }
+    50%      { opacity: 1; transform: scale(1.06); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .dp-shopper-glow { animation: none; }
+}
+
+.dp-shopper-section.aos-animate .dp-shopper-clip {
+    animation: dpShopperReveal .9s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes dpShopperReveal {
+    from { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); }
+    to   { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+}
+
+.dp-shopper-section.aos-animate .dp-shopper-badge {
+    animation: dpShopperBadgeIn .6s cubic-bezier(.16,1,.3,1) .7s both;
+}
+@keyframes dpShopperBadgeIn {
+    from { opacity: 0; transform: translateY(10px) scale(.94); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.dp-shopper-section.aos-animate .dp-shopper-copy > * {
+    animation: dpShopperCopyIn .6s cubic-bezier(.16,1,.3,1) both;
+}
+.dp-shopper-section.aos-animate .dp-shopper-copy > *:nth-child(2) { animation-delay: .14s; }
+@keyframes dpShopperCopyIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dp-shopper-section.aos-animate .dp-shopper-clip,
+    .dp-shopper-section.aos-animate .dp-shopper-badge,
+    .dp-shopper-section.aos-animate .dp-shopper-copy > * {
+        animation: none;
+        clip-path: none;
+    }
+}
+
+/* Testimonials slider — horizontal scroll-snap track, not a JS-computed
+   index/transform carousel: native touch swipe on mobile, arrow buttons and
+   autoplay just call scrollBy/scrollTo on the same element, so there's one
+   source of truth (scroll position) instead of two that can drift apart. */
+.dp-testimonial-track {
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.dp-testimonial-track::-webkit-scrollbar { display: none; }
+.dp-testimonial-card { scroll-snap-align: start; }
+
+/* Skip-to-content link — sitewide (fmaster.blade.php), first focusable
+   element in <body>. The floating header nav has 6+ links plus CMS items
+   plus login/CTA ahead of <main id="main"> in tab order on every page;
+   this gives keyboard users a way past it without visually intruding on
+   sighted mouse users (off-screen until focused). */
+.dp-skip-link {
+    position: absolute; top: -100px; left: 12px; z-index: 100010;
+    background: var(--dp-ink, #14171a); color: #fff;
+    padding: 10px 18px; border-radius: 8px;
+    font-weight: 700; font-size: 14px; text-decoration: none;
+    transition: top .15s ease;
+}
+.dp-skip-link:focus { top: 12px; }
+
+/* ==========================================================================
+   Public site header — floating centered rounded navbar.
+   Site-wide (fmaster.blade.php), not just the homepage, so this lives
+   outside .dp-home but still leans on the same --dp-* tokens for cohesion.
+   #header specificity is required to beat main.css's .navbar rules, since
+   main.css loads AFTER app.css in fcommon/head.blade.php.
+   ========================================================================== */
+#header { padding: 22px 0; }
+#header.sticked { padding: 12px 0; }
+
+@keyframes dpNavIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (min-width: 1280px) {
+    /* Was `position: absolute; left:50%` — centered on the FULL header width
+       with no regard for what sits beside it, so it never reserved space and
+       could visually overlap `.header-actions` (login/get-a-quote/language
+       switcher) whenever the header's total content — logo + nav links +
+       actions — ran wider than the viewport. That headroom shrank further
+       once the language switcher joined `.header-actions`, which is what
+       made the overlap (reported as the language selector sitting "on top
+       of"/"above" the Get a Quote button) actually visible. A normal flex
+       item with auto side-margins centers in the space its siblings don't
+       need instead, so the browser reserves real space for it and it can no
+       longer overlap either neighbor — it shrinks/wraps its own links
+       first. */
+    #header .navbar {
+        position: static;
+        margin-left: auto;
+        margin-right: auto;
+        animation: dpNavIn .7s cubic-bezier(.16,1,.3,1) both;
+    }
+    /* White pill, cyan ink, orange accent — the site's blue/orange/white triad
+       lifted onto its own floating surface instead of blending into the hero. */
+    #header .navbar ul {
+        gap: 2px;
+        padding: 6px;
+        border-radius: 999px;
+        background: #ffffff;
+        border: 1px solid var(--dp-cyan-soft, #e3f4fc);
+        box-shadow: 0 14px 34px -14px rgba(76,154,145,.35), 0 1px 0 rgba(76,154,145,.04);
+        transition: box-shadow .35s ease, transform .35s ease;
+    }
+    #header.sticked .navbar ul {
+        box-shadow: 0 18px 40px -16px rgba(76,154,145,.45), 0 0 0 3px var(--dp-cyan-soft, #e3f4fc);
+    }
+    #header .navbar li { position: relative; }
+    #header .navbar li.nav-item-login,
+    #header .navbar li.nav-item-cta,
+    #header .navbar li.nav-item-lang { display: none; }
+
+    #header .navbar a,
+    #header .navbar a:focus {
+        padding: 10px 20px !important;
+        border-radius: 999px !important;
+        font-size: 14.5px;
+        font-weight: 700;
+        color: var(--dp-cyan, #29abe2);
+        position: relative;
+        transition: color .25s ease, background-color .25s ease, transform .2s ease;
+    }
+    #header .navbar a:hover {
+        color: var(--dp-cyan, #29abe2);
+        background: var(--dp-cyan-soft, #e3f4fc);
+        transform: translateY(-1px);
+    }
+    #header .navbar a.active,
+    #header .navbar a.active:focus {
+        color: #fff;
+        background: var(--dp-accent, #ff5a1f);
+        box-shadow: 0 6px 16px -6px rgba(171,61,35,.55);
+    }
+}
+
+/* Desktop-only actions (login + CTA) pinned to the right, outside the
+   centered pill — the mobile off-canvas <ul> still ships its own copies. */
+.header-actions { position: relative; z-index: 2; }
+/* Self-contained contrast: a translucent dark chip behind the text, not a
+   plain white-on-transparent color. That way it stays readable whichever
+   hero background sits behind it (light paper here, dark photo elsewhere,
+   whatever comes next) instead of depending on a page-specific backdrop
+   trick stayIng correctly positioned/sized/stacked underneath it. */
+.header-action-link {
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    padding: .55rem 1rem;
+    border-radius: 999px;
+    background: rgba(20,23,26,.4);
+    border: 1.5px solid rgba(255,255,255,.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: color .2s ease, background-color .2s ease, border-color .2s ease;
+}
+.header-action-link:hover {
+    color: var(--dp-ink, #14171a);
+    background: #ffffff;
+    border-color: #ffffff;
+}
+
+.get-a-quote-btn {
+    /* Ink-on-accent, not white-on-accent — see .dp-console-submit. */
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    background: var(--dp-accent, #ff5a1f);
+    color: var(--dp-ink, #14171a);
+    font-size: 14px;
+    font-weight: 700;
+    padding: .6rem 1.15rem;
+    border-radius: 999px;
+    box-shadow: 0 8px 20px -8px rgba(171,61,35,.6);
+    animation: dpCtaPulse 3.2s ease-in-out infinite;
+    transition: transform .2s ease, background-color .2s ease, box-shadow .2s ease;
+}
+.get-a-quote-btn:hover {
+    background: var(--dp-accent-dark, #d6430e);
+    color: var(--dp-ink, #14171a);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px -10px rgba(171,61,35,.75);
+    animation-play-state: paused;
+}
+.get-a-quote-btn i { font-size: 12px; transition: transform .2s ease; }
+.get-a-quote-btn:hover i { transform: translateX(3px); }
+
+@keyframes dpCtaPulse {
+    0%, 100% { box-shadow: 0 8px 20px -8px rgba(171,61,35,.6); }
+    50% { box-shadow: 0 8px 26px -6px rgba(171,61,35,.85); }
+}
+
+/* Header language switcher — homepage i18n pilot (see fmaster.blade.php,
+   fcommon/lang-switcher.blade.php). Same translucent-dark-chip language as
+   .header-action-link, so it reads as one family of header controls
+   regardless of what photo/gradient sits behind the fixed header. */
+.dp-lang-trigger {
+    padding: .5rem .7rem;
+    border-radius: 999px;
+    background: rgba(20,23,26,.4);
+    border: 1.5px solid rgba(255,255,255,.4);
+    /* Was missing: without this, the chevron (and the flag's own hairline
+       ring) inherited the page's default ink-dark text color and rendered
+       nearly invisible on this chip's own dark translucent background —
+       the "language selector" was there, just unreadable. Matches
+       .header-action-link, its sibling in this same fixed-header control
+       family, base color and hover swap alike. */
+    color: #ffffff;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: color .2s ease, background-color .2s ease, border-color .2s ease;
+    cursor: pointer;
+}
+.dp-lang-trigger:hover {
+    color: var(--dp-ink, #14171a);
+    background: #ffffff;
+    border-color: #ffffff;
+}
+.dp-lang-menu {
+    min-width: 11rem;
+    background: #fff;
+    border: 1px solid var(--dp-line, #e5e1d8);
+    border-radius: 12px;
+    box-shadow: 0 20px 40px -16px rgba(20,23,26,.35);
+    padding: .4rem;
+    z-index: 1050;
+}
+.dp-lang-option {
+    padding: .5rem .65rem;
+    border-radius: 8px;
+    font-size: .85rem;
+    font-weight: 600;
+    color: var(--dp-ink, #14171a);
+    transition: background-color .15s ease;
+}
+.dp-lang-option:hover { background: var(--dp-paper, #f9f9f7); }
+.dp-lang-option.is-active { color: var(--dp-accent-dark, #d6430e); }
+
+/* ================================================================
+   Header "Locations" mega-menu — six countries read better as an
+   icon + label grid under a section label than the plain text list
+   Resources (2 items) uses, so this is its own component rather
+   than the shared .navbar .dropdown ul. Icon-chip colors reuse the
+   site's own two-tone accent/cyan pairing (already the established
+   rhythm — see .dp-region-badge's gradient, the destination pages'
+   own hero chips) instead of a new per-icon palette. ================ */
+.dp-loc-panel-label {
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--dp-ink-soft, #5c6066);
+    margin: 0 0 .7rem;
+    padding: 0 .35rem;
+}
+.dp-loc-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .15rem .5rem;
+}
+.dp-loc-item {
+    display: flex;
+    align-items: center;
+    gap: .65rem;
+    padding: .5rem .5rem;
+    border-radius: 10px;
+    font-size: .87rem;
+    font-weight: 600;
+    color: var(--dp-ink, #14171a);
+    transition: background-color .15s ease;
+}
+.dp-loc-item:hover,
+.dp-loc-item.active {
+    background: var(--dp-paper, #f9f9f7);
+    color: var(--dp-ink, #14171a);
+}
+.dp-loc-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.15rem;
+    height: 2.15rem;
+    border-radius: 9px;
+    font-size: .85rem;
+    flex-shrink: 0;
+}
+.dp-loc-icon-accent { background: var(--dp-accent-soft, #fdecd8); color: var(--dp-accent-dark, #d97a0e); }
+.dp-loc-icon-cyan { background: var(--dp-cyan-soft, #e3f4fc); color: var(--dp-cyan-dark, #1b87b8); }
+/* Europe and South America use a real flag (flag-icon-css, already loaded
+   for the language switcher) rather than a generic globe glyph — neither
+   continent nor the Schengen Area has an official flag of its own, so
+   these stand in for the region the same way the language switcher's
+   flags stand in for a language: EU for Europe/Schengen, Brazil (the
+   region's largest, most recognized flag) for South America. The
+   library's own sizing is tuned for inline text (em units); this chip
+   needs a fixed size instead. */
+.dp-loc-icon-flag { background: var(--dp-paper, #f9f9f7); overflow: hidden; }
+.dp-loc-icon-flag .flag-icon {
+    display: block;
+    width: 1.6rem;
+    height: 1.6rem;
+    line-height: 0;
+    border-radius: 6px;
+    background-size: cover;
+}
+.dp-loc-icon-flag .flag-icon:before { content: none; }
+
+@media (min-width: 1280px) {
+    .navbar .dropdown .dp-loc-panel {
+        display: block;
+        position: absolute;
+        left: 14px;
+        top: calc(100% + 10px);
+        margin: 0;
+        width: 22rem;
+        z-index: 99;
+        opacity: 0;
+        visibility: hidden;
+        background: #fff;
+        border: 1px solid var(--dp-line, #e5e1d8);
+        box-shadow: 0 20px 40px -16px rgba(20, 23, 26, .35);
+        transition: 0.3s;
+        border-radius: 16px;
+        padding: 1rem;
+    }
+    .navbar .dropdown:hover > .dp-loc-panel,
+    .navbar .dropdown.dp-dropdown-open > .dp-loc-panel {
+        opacity: 1;
+        top: 100%;
+        visibility: visible;
+    }
+}
+@media (max-width: 1279px) {
+    /* Same static/toggle mechanics as the vendor .navbar .dropdown ul on
+       mobile (main.css) — .dropdown-active is the same class main.js
+       already toggles on tap, generic to any element, not just <ul>. */
+    .navbar .dp-loc-panel { display: none; padding: 6px 20px 14px; margin: 0; }
+    .navbar .dp-loc-panel.dropdown-active { display: block; }
+    .dp-loc-panel-label { color: rgba(255, 255, 255, .55); }
+    .dp-loc-grid { grid-template-columns: 1fr; gap: 0; }
+    .dp-loc-item { color: rgba(255, 255, 255, .85); padding: .6rem .5rem; }
+    .dp-loc-item:hover,
+    .dp-loc-item.active { background: rgba(255, 255, 255, .08); color: #fff; }
+}
+
+/* ================================================================
+   Legal / long-form content pages (privacy policy, terms of
+   business, refund policy) — a "Read" mode: prioritize comprehension
+   of dense reference text over marketing expression. A sticky
+   section nav plus generous heading rhythm and real bordered tables
+   (the source documents contain literal comparison tables, e.g. the
+   Privacy Policy's purpose/legal-basis grid) — no equivalent existed
+   in the design system before these pages needed it.
+   ================================================================ */
+.dp-legal-header-card {
+    border: 1px solid var(--dp-line);
+    box-shadow: 0 24px 60px -34px rgba(20,23,26,.35);
+}
+.dp-legal-meta-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    padding: .4rem .85rem;
+    border-radius: 999px;
+    background: var(--dp-accent-soft);
+    color: var(--dp-accent-dark);
+    font-size: .78rem;
+    font-weight: 700;
+}
+
+.dp-legal-toc-link {
+    display: block;
+    padding: .5rem .8rem;
+    border-radius: 8px;
+    font-size: .83rem;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--dp-ink-soft);
+    border-left: 2px solid transparent;
+    transition: color .15s ease, background-color .15s ease, border-color .15s ease, transform .15s ease;
+}
+.dp-legal-toc-link:hover { color: var(--dp-ink); background: var(--dp-paper); transform: translateX(2px); }
+.dp-legal-toc-link.is-active {
+    color: var(--dp-accent-dark);
+    border-left-color: var(--dp-accent);
+    background: var(--dp-accent-soft);
+}
+
+.dp-legal-body h2 {
+    font-size: 1.65rem;
+    margin-top: 3.5rem;
+    margin-bottom: 1.15rem;
+    padding-top: 1.75rem;
+    border-top: 2px solid var(--dp-line);
+    scroll-margin-top: 6.5rem;
+}
+.dp-legal-body > h2:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+.dp-legal-body h3 {
+    font-size: 1.1rem;
+    margin-top: 1.85rem;
+    margin-bottom: .65rem;
+}
+.dp-legal-body p, .dp-legal-body li {
+    font-size: .95rem;
+    line-height: 1.75;
+    color: var(--dp-ink-soft);
+}
+.dp-legal-body p { margin-bottom: 1.1rem; }
+.dp-legal-body ul, .dp-legal-body ol { margin: 0 0 1.1rem; padding-left: 1.3rem; }
+.dp-legal-body ul { list-style: disc; }
+.dp-legal-body ol { list-style: decimal; }
+.dp-legal-body li { margin-bottom: .5rem; }
+.dp-legal-body li::marker { color: var(--dp-accent-dark); font-weight: 700; }
+.dp-legal-body strong { color: var(--dp-ink); font-weight: 700; }
+.dp-legal-body a:not(.dp-btn) {
+    color: var(--dp-accent-dark);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+.dp-legal-body em {
+    color: var(--dp-ink);
+    font-style: normal;
+    font-weight: 600;
+}
+
+.dp-legal-table-wrap {
+    overflow: hidden;
+    overflow-x: auto;
+    margin-bottom: 1.75rem;
+    border-radius: 14px;
+    border: 1px solid var(--dp-line);
+    box-shadow: 0 16px 40px -30px rgba(20,23,26,.3);
+}
+.dp-legal-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    font-size: .85rem;
+}
+.dp-legal-table th, .dp-legal-table td {
+    border-bottom: 1px solid var(--dp-line);
+    padding: .8rem 1rem;
+    text-align: left;
+    vertical-align: top;
+    line-height: 1.55;
+    color: var(--dp-ink-soft);
+}
+.dp-legal-table td:not(:last-child), .dp-legal-table th:not(:last-child) {
+    border-right: 1px solid var(--dp-line);
+}
+.dp-legal-table tbody tr:last-child th, .dp-legal-table tbody tr:last-child td { border-bottom: none; }
+.dp-legal-table th {
+    background: var(--dp-accent-soft);
+    color: var(--dp-ink);
+    font-weight: 700;
+    font-size: .78rem;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+}
+
+.dp-legal-callout {
+    display: flex;
+    align-items: flex-start;
+    gap: .9rem;
+    background: var(--dp-accent-soft);
+    border-radius: 14px;
+    padding: 1.1rem 1.35rem;
+    font-size: .9rem;
+    line-height: 1.7;
+    color: var(--dp-ink);
+    margin-bottom: 1.5rem;
+}
+.dp-legal-callout-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--dp-accent-dark);
+    font-size: .95rem;
+    flex-shrink: 0;
+}
+
+/* Destination pages (Asia, Australia, Europe, Middle East, South America,
+   USA) — reuses the .dp-legal-body reading system above for the prose, plus
+   a store-chip grid so the long per-country retailer lists scan as a single
+   glance instead of a wall of bullets. */
+.dp-store-label {
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--dp-ink-soft);
+    margin: 0 0 .6rem;
+}
+.dp-store-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin: 0 0 1.75rem;
+}
+.dp-store-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    padding: .5rem .9rem;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid var(--dp-line);
+    color: var(--dp-ink);
+    font-size: .83rem;
+    font-weight: 600;
+    transition: border-color .15s ease, color .15s ease, background-color .15s ease;
+}
+.dp-store-chip i { color: var(--dp-accent-dark); font-size: .72rem; }
+a.dp-store-chip:hover { border-color: var(--dp-accent); background: var(--dp-accent-soft); color: var(--dp-ink); }

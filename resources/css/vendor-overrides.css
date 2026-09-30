@@ -1,0 +1,152 @@
+/* ---- DataTables (loaded via dashbord/plugins/datatables*) ----
+   Uses the STOCK (non-bootstrap4) DataTables/Responsive builds — the -bs4 integration files
+   delegate layout/pagination styling to Bootstrap classes (.page-item, .page-link, .form-control)
+   that this Tailwind layout never loads, leaving them unstyled. The stock build's plain markup
+   (.dataTables_wrapper > .dataTables_length/.dataTables_filter/.dataTables_info/.dataTables_paginate,
+   <span class="paginate_button">) is styled directly here instead. */
+.dataTables_wrapper:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter {
+    margin-bottom: 0.5rem;
+}
+.dataTables_wrapper .dataTables_length {
+    float: left;
+}
+.dataTables_wrapper .dataTables_filter {
+    float: right;
+    text-align: right;
+}
+.dataTables_wrapper .dataTables_filter input,
+.dataTables_wrapper .dataTables_length select {
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 0.375rem !important;
+    padding: 0.25rem 0.5rem !important;
+    margin-left: 0.375rem;
+}
+.dataTables_wrapper .dataTables_info {
+    float: left;
+    color: #64748b;
+    font-size: 0.8125rem;
+    padding-top: 0.5rem;
+}
+.dataTables_wrapper .dataTables_paginate {
+    float: right;
+    padding-top: 0.375rem;
+    white-space: nowrap;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    display: inline-block;
+    padding: 0.25rem 0.625rem;
+    border-radius: 0.375rem !important;
+    margin: 0 2px;
+    cursor: pointer;
+    color: #334155;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background: #f1f5f9;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
+    color: #cbd5e1;
+    cursor: default;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover {
+    background: transparent;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background: var(--color-brand) !important;
+    border-color: var(--color-brand) !important;
+    color: #fff !important;
+}
+table.dataTable thead th {
+    border-bottom: 2px solid #e2e8f0 !important;
+    font-weight: 600;
+    color: #334155;
+}
+table.dataTable td.dataTables_empty {
+    text-align: center;
+    color: #94a3b8;
+}
+/* Responsive extension (stock build): "+" details-control column */
+table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control,
+table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control {
+    position: relative;
+    padding-left: 1.75rem;
+    cursor: pointer;
+}
+table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
+    content: '+';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 0.25rem;
+    top: 50%;
+    width: 1.125rem;
+    height: 1.125rem;
+    margin-top: -0.5625rem;
+    border-radius: 9999px;
+    background: var(--color-brand);
+    color: #fff;
+    font-size: 0.75rem;
+    line-height: 1;
+}
+table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td.dtr-control:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th.dtr-control:before {
+    content: '-';
+}
+table.dataTable > tbody > tr.child ul.dtr-details {
+    list-style: none;
+    padding: 0.5rem 0;
+    margin: 0;
+}
+table.dataTable > tbody > tr.child ul.dtr-details > li {
+    padding: 0.25rem 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+table.dataTable > tbody > tr.child span.dtr-title {
+    font-weight: 600;
+    color: #334155;
+    margin-right: 0.375rem;
+}
+
+/* ---- select2 ---- */
+.select2-container--default .select2-selection--single {
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 0.375rem !important;
+    height: 2.5rem !important;
+    display: flex;
+    align-items: center;
+    padding-left: 0.5rem;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 2.5rem !important;
+}
+.select2-container--default.select2-container--focus .select2-selection--single {
+    border-color: var(--color-brand) !important;
+    box-shadow: 0 0 0 3px var(--color-brand-light);
+}
+.select2-dropdown {
+    border-color: #cbd5e1 !important;
+}
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: var(--color-brand) !important;
+}
+
+/* ---- summernote ---- */
+.note-editor.note-frame {
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 0.375rem !important;
+}
+.note-editor.note-frame .note-toolbar {
+    background: #f8fafc !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+}
+.note-editor.note-frame.note-frame-active {
+    border-color: var(--color-brand) !important;
+    box-shadow: 0 0 0 3px var(--color-brand-light);
+}
